@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lurodri2 <lurodri2@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lucas <lucas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 08:16:29 by lurodri2          #+#    #+#             */
-/*   Updated: 2026/11/10 12:44:07 by lurodri2         ###   ########.fr       */
+/*   Updated: 2026/11/12 09:32:53 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,18 +120,52 @@ char	*get_next_line(int fd)
 	stash = upd_line(stash);
 	return (line);
 }
-/*int main (void)
+/*#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include "get_next_line_bonus.h"
+
+int	main(void)
 {
-	int	fd;
-	char	*linha;
-	fd = open("teste.txt", O_RDONLY);
-	linha = get_next_line(fd);
-	while (linha)
+	char	*files[3] = {"a.txt", "b.txt", "c.txt"};
+	int		fd[3];
+	char	*line;
+	int		i;
+	int		abertos;
+
+	i = 0;
+	while (i < 3)
 	{
-		printf("%s", linha);      // sem \n extra: a linha já o traz
-		free(linha);              // cada linha é tua para libertar
-		linha = get_next_line(fd);
+		fd[i] = open(files[i], O_RDONLY);
+		i++;
 	}
-	close(fd);
+	abertos = 3;
+	while (abertos > 0)
+	{
+		i = 0;
+		while (i < 3)
+		{
+			if (fd[i] != -1)
+			{
+				line = get_next_line(fd[i]);
+				if (line)
+				{
+					printf("[%s] %s", files[i], line);
+					if (line[0] && line[strlen(line) - 1] != '\n')
+						printf("\n");
+					free(line);
+				}
+				else
+				{
+					printf("[%s] fim (NULL)\n", files[i]);
+					close(fd[i]);
+					fd[i] = -1;
+					abertos--;
+				}
+			}
+			i++;
+		}
+	}
 	return (0);
 }*/
